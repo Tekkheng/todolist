@@ -36,3 +36,55 @@
     transform: rotate(360deg);
   }
 }
+
+.box {
+  border: 4px solid rgb(228, 225, 220);
+  border-radius: 20px;
+  text-shadow: 3px 2px 1px rgb(254, 249, 249);
+  font-weight: bold;
+  font-family: sans-serif;
+  width : 500px;
+  height: 590px;
+  margin : 50px auto;
+  z-index : 5;
+  background-color: #add8e6;
+}
+
+button{
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  color : white;
+  position: relative;
+  left:0.5%;
+  padding:2px;
+}
+button.btn{
+  background-color: #d0321d;
+  border: 1px solid #d0321d;
+  border-radius : 3px;
+  color : white;
+  padding:2px;
+  margin-right:10px;
+  float: right;
+}
+button.btn2{
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  border-radius : 3px;
+  color : white;
+  padding:2px;
+  margin-right:10px;
+  float: right;
+}
+
+ol{
+  text-align: left;
+  border:1px solid rgb(131, 125, 125);
+  border-radius: 5px;
+  padding : 5px 0px 5px 15px;
+  background-color: white;
+}
+li{
+  display:inline;
+}
+
