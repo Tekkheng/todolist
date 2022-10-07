@@ -63,7 +63,7 @@ const Todolist = () =>{
     return(
         <>
         <div className="box">
-            <h1>ToDoList</h1>
+            <h1>To Do List</h1>
             <label>Isi Todolist :</label>
             <input type="text" onChange={((inpt)=>inputData(inpt.target.value))} value={data} />
             <button type="submit" onClick={ToDo}>Save</button>
