@@ -62,7 +62,7 @@ class Todo extends React.Component {
             }else{
                 alert("data kepenuhan");
             }
-            // console.log(this.state.items);
+           
         }
         
     }
