@@ -64,10 +64,11 @@ const Todolist = () =>{
         <>
         <div className="box">
             <h1>To Do List</h1>
-            <label>Isi Todolist :</label>
-            <input type="text" onChange={((inpt)=>inputData(inpt.target.value))} value={data} />
-            <button type="submit" onClick={ToDo}>Save</button>
-            <hr/>
+            <p style={{position:"relative",bottom:"10%"}}> Data : {items.length}</p>
+            <div className="inptData">
+                <input className="inpt1" type="text" onChange={((inpt)=>inputData(inpt.target.value))} value={data} placeholder="Isi Data ..."/>
+                <button className="btnAdd" type="submit" onClick={ToDo}>Save</button>
+            </div>
             
             {items.map((item)=>{
                 return (
@@ -77,6 +78,7 @@ const Todolist = () =>{
                         </li>
                         <button className="btn" onClick={hapusItems.bind(this, item.id)}>Hapus</button>
                         <button className="btn2" onClick={editItems.bind(this, item)}>Edit</button>
+                        <input className="cekbox" type="checkbox" style={{float:"right"}}/>
                     </ol>
                 )
             })}

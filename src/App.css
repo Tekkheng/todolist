@@ -1,7 +1,8 @@
-.App {
+h1 { 
   text-align: center;
+  position:relative;
+  bottom: 10%;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -38,18 +39,45 @@
 }
 
 .box {
-  border: 4px solid rgb(228, 225, 220);
-  border-radius: 20px;
-  text-shadow: 3px 2px 1px rgb(254, 249, 249);
+  border: 4px solid #0d4343;
+  border-radius: 10px;
+  color:white;
+  box-shadow: 10px 10px 15px #1a1919;
+  text-shadow: 3px 2px 1px rgb(12, 11, 11);
   font-weight: bold;
   font-family: sans-serif;
-  width : 500px;
-  height: 590px;
+  width : 400px;
+  height: 550px;
   margin : 50px auto;
+  padding : 50px;
   z-index : 5;
-  background-color: #add8e6;
+  background-color: 	#0d4343
 }
-
+.inptData{
+  margin-top:5px;
+  position:relative;
+  bottom: 10%;
+  color:white;
+}
+.inpt1{
+  width: 82%;
+  padding : 10px 0px 10px 15px;
+  background-color: rgba(0, 0, 0, 0.488);
+  border:1px solid white;
+  border-radius: 5px;
+  position:relative;
+  bottom: 10%;
+  color:white;
+}
+.btnAdd{
+  background-color: rgba(29, 131, 58, 0.38);
+  border: 1px solid #f4f4f4;
+  border-radius : 3px;
+  color : white;
+  padding:10px 5px 10px 5px;
+  position: relative;
+  left: 2%;
+}
 button{
   background-color: #0d6efd;
   border: 1px solid #0d6efd;
@@ -79,10 +107,12 @@ button.btn2{
 
 ol{
   text-align: left;
-  border:1px solid rgb(131, 125, 125);
+  border:2px solid rgb(235, 229, 229);
   border-radius: 5px;
   padding : 5px 0px 5px 15px;
-  background-color: white;
+  background-color: transparent;
+  position:relative;
+  bottom: 10%;
 }
 li{
   display:inline;
