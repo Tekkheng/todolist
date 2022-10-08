@@ -8,7 +8,7 @@ const Todolist = () =>{
     const inputData = ((inpt)=>{
        setData(inpt);  
     })
-
+// s
     const ToDo = (event)=>{
         event.preventDefault();
         if(edit.id){
