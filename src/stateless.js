@@ -1,9 +1,11 @@
+import { hasSelectionSupport } from "@testing-library/user-event/dist/utils";
 import React, {useState,useEffect,useRef} from "react"
 
 const Todolist = () =>{
     const [data,setData] = useState("");
     const [items,setItems] = useState([]);
     const [edit,setEdit] = useState({});
+    const [pesanError,setPesanError] = useState("");
 
     const inputData = ((inpt)=>{
        setData(inpt);  
@@ -25,16 +27,18 @@ const Todolist = () =>{
                 setItems(cloneItems);
                 setData("");
                 setEdit("");
+                setPesanError("");
             }else{
-                alert("isi Data");
+                setPesanError("Error, isi data untuk edit dulu! ");
             }
 
         }else if(items.length < 10 ){    
             if(data !== ""){
+                setPesanError("");
                 setItems([...items, { data, id:generateid() }]); 
                 setData("");    
             }else{
-                alert("data kosong");
+                return setPesanError("Error, Data belum di isi");
             }
         }else{
             alert("Data Kepenuhan");
@@ -57,17 +61,24 @@ const Todolist = () =>{
     const editItems = (argumentItems) => {
         setData(argumentItems.data);
         setEdit(argumentItems);
+        setPesanError("");
     }
 
+    const Cancel = () =>{
+        setData("");
+        setEdit({});
+        setPesanError("");
+    }
 
     return(
         <>
         <div className="box">
             <h1>To Do List</h1>
-            <p style={{position:"relative",bottom:"10%"}}> Data : {items.length}</p>
+            <p style={{position:"relative",bottom:"10%"}}> Data : {items.length} <h6 style={{position:"absolute",top:"-5px",color:"tomato",textShadow:"none"}}>{pesanError}</h6></p>
             <div className="inptData">
                 <input className="inpt1" type="text" onChange={((inpt)=>inputData(inpt.target.value))} value={data} placeholder="Isi Data ..."/>
-                <button className="btnAdd" type="submit" onClick={ToDo}>Save</button>
+                {edit.id ? (<button className="btnAdd" type="submit" onClick={ToDo}>Edit</button>) : (<button className="btnAdd" type="submit" onClick={ToDo}>Add</button>)}
+                {edit.id && <button className="btnAdd" type="submit" onClick={Cancel}>Cancel</button>}
             </div>
             
             {items.map((item)=>{

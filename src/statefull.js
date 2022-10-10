@@ -5,7 +5,7 @@ class Todo extends React.Component {
         input : "",
         items : [],
         edit : {},
-        // check : "",
+        error : "",
     }
 
     doInput = (v) =>{
@@ -28,25 +28,25 @@ class Todo extends React.Component {
             const cloneItems = [...this.state.items];
             console.log(cloneItems);
             cloneItems[cariIndex] = itemsBaru;
-            this.setState({
-                input : "",
-                edit : {},
-            })
+            // this.setState({
+            //     input : "",
+            //     edit : {},
+            // })
             console.log(cloneItems[cariIndex]);
             
             if(this.state.input !== ""){
                 this.setState({
                     items : cloneItems,
-                })
-
-                // this.setState({
-                //     check : "",
-                // })
-                // console.log(this.state.check);
-                
+                    error : "",
+                    input : "",
+                    edit : {},
+                })    
             }else{
-                alert("Data masih kosong");
+                this.setState({
+                    error : "Error, isi data untuk edit dulu!",
+                })
             }
+
         }else{  
             if(this.state.items.length < 10){
 
@@ -55,9 +55,12 @@ class Todo extends React.Component {
                     this.setState({
                         items : [...this.state.items, {input:this.state.input,id : this.generateId()}],
                         input : "",  
+                        error : "",
                     })
                 }else{
-                    alert("Data belum di isi");
+                    this.setState({
+                        error : "Error, data di isi dulu!",
+                    })
                 }
             }else{
                 alert("data kepenuhan");
@@ -83,25 +86,29 @@ class Todo extends React.Component {
         this.setState({
             input : d.input,
             edit : d,
+            error : "",
+        })
+    }
+    Cancel = () =>{
+        this.setState({
+            input : "",
+            edit : {},
+            error : "",
         })
     }
     
-    // check = (v)=>{
-    //     this.setState({
-    //         check : v.target.checked,
-    //     })
-    //     console.log(this.state.check);
-    // }
-    
     render(){
-        // console.log(this.state.edit);
+        console.log("data Edit :",this.state.edit);
         return(
             <div className="box">
             <h1>To Do List</h1>
-            <p style={{position:"relative",bottom:"10%"}}> Data : {this.state.items.length}</p>
+            <p style={{position:"relative",bottom:"10%"}}> Data : {this.state.items.length}<h6 style={{position:"absolute",top:"-5px",color:"tomato",textShadow:"none"}}>{this.state.error}</h6></p>
             <div className="inptData">
                 <input className="inpt1" type="text" onChange={((inpt)=>this.doInput(inpt))} value={this.state.input} placeholder="Isi Data ..."/>
-                <button className="btnAdd"onClick={this.ToDo}>Add</button>
+                {this.state.edit.id ? (<button className="btnAdd" onClick={this.ToDo}>Edit</button>) : (<button className="btnAdd" onClick={this.ToDo}>Add</button>)}
+                
+                {this.state.edit.id && <button className="btnAdd" onClick={this.Cancel}>Cancel</button>}
+                
             </div>
 
             {this.state.items.map((d)=>{
