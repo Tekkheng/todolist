@@ -53,7 +53,7 @@ class Todo extends React.Component {
                 if(this.state.input !== ""){
     
                     this.setState({
-                        items : [...this.state.items, {input:this.state.input,id : this.generateId()}],
+                        items : [...this.state.items, {input:this.state.input,id : this.generateId(), done : false}],
                         input : "",  
                         error : "",
                     })
@@ -96,32 +96,53 @@ class Todo extends React.Component {
             error : "",
         })
     }
+    updateCheck = (d) => {
+        const updateItems = {
+            ...d,
+            done : d.done ? false : true,
+        }
+        console.log(updateItems);
+
+        const cariIndex = this.state.items.findIndex((indexItems)=>{
+            return indexItems.id == d.id;
+        })
+        const cloneItems = [...this.state.items];
+        cloneItems[cariIndex] = updateItems;
+        this.setState({
+            items : cloneItems,
+        })
+    }
     
     render(){
         console.log("data Edit :",this.state.edit);
         return(
             <div className="box">
             <h1>To Do List</h1>
-            <p style={{position:"relative",bottom:"10%"}}> Data : {this.state.items.length}<h6 style={{position:"absolute",top:"-5px",color:"tomato",textShadow:"none"}}>{this.state.error}</h6></p>
+            <p style={{position:"relative",bottom:"10%"}}> Data : {this.state.items.length}</p>
             <div className="inptData">
                 <input className="inpt1" type="text" onChange={((inpt)=>this.doInput(inpt))} value={this.state.input} placeholder="Isi Data ..."/>
+                <h6 style={{position:"absolute",top:"-2.5rem",color:"tomato",textShadow:"none"}}>{this.state.error}</h6>
                 {this.state.edit.id ? (<button className="btnAdd" onClick={this.ToDo}>Edit</button>) : (<button className="btnAdd" onClick={this.ToDo}>Add</button>)}
                 
                 {this.state.edit.id && <button className="btnAdd" onClick={this.Cancel}>Cancel</button>}
                 
             </div>
 
-            {this.state.items.map((d)=>{
-                return(
-                    <ol>
-                        <li>{d.input}</li>
-                        <button className="btn2" onClick={this.hapusBtn.bind(this, d.id)}>delete</button>
-                        <button className="btn" onClick={this.editBtn.bind(this,d)}>edit</button>
-                        {/* <input className="cekbox" type="checkbox" onClick={this.check} checked={this.state.check} onChange={(()=>"")} style={{float:"right"}}/> */}
-                        <input className="cekbox" type="checkbox" style={{float:"right"}}/>
-                    </ol>
-                )
-            })}
+            {this.state.items.length > 0 ? (
+                this.state.items.map((d)=>{
+                    return(
+                        <ol>
+                            {d.done && <li style={{float:"right",position:"absolute", right:"7rem",color:"green"}}>Done</li>}
+                            <li>{d.input}</li>
+                            <button className="btn2" onClick={this.hapusBtn.bind(this, d.id)}>delete</button>
+                            <button className="btn" onClick={this.editBtn.bind(this,d)}>edit</button>
+                            {/* <input className="cekbox" type="checkbox" onClick={this.check} checked={this.state.check} onChange={(()=>"")} style={{float:"right"}}/> */}
+                            <input className="cekbox" type="checkbox" onChange={this.updateCheck.bind(this,d)} style={{float:"right"}} value={this.state.items.done}/>
+                        </ol>
+                    )
+                })
+            ) : ("Data Masing Kosong")}
+            
             </div>
         )
     }

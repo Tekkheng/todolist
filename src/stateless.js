@@ -35,7 +35,7 @@ const Todolist = () =>{
         }else if(items.length < 10 ){    
             if(data !== ""){
                 setPesanError("");
-                setItems([...items, { data, id:generateid() }]); 
+                setItems([...items, { data, id:generateid(),done:false }]); 
                 setData("");    
             }else{
                 return setPesanError("Error, Data belum di isi");
@@ -70,29 +70,51 @@ const Todolist = () =>{
         setPesanError("");
     }
 
+    const updateCheck = (update) =>{
+        // console.log(items);
+        const updateItems = {
+            ...update,
+            done : update.done ? false : true,
+        }
+        // console.log(updateItems);
+        const cariIndex = items.findIndex((i)=>{
+            return i.id == update.id;
+        })
+        // console.log(cariIndex);
+        const cloneItems = [...items];
+        cloneItems[cariIndex] = updateItems;
+        
+        setItems(cloneItems);
+        console.log(items);
+        console.log(cloneItems);
+    }
     return(
         <>
         <div className="box">
             <h1>To Do List</h1>
-            <p style={{position:"relative",bottom:"10%"}}> Data : {items.length} <h6 style={{position:"absolute",top:"-5px",color:"tomato",textShadow:"none"}}>{pesanError}</h6></p>
+            <p style={{position:"relative",bottom:"10%"}}> Data : {items.length}</p>
             <div className="inptData">
                 <input className="inpt1" type="text" onChange={((inpt)=>inputData(inpt.target.value))} value={data} placeholder="Isi Data ..."/>
+                <h6 style={{position:"absolute",top:"-2.5rem",color:"tomato",textShadow:"none"}}>{pesanError}</h6>
                 {edit.id ? (<button className="btnAdd" type="submit" onClick={ToDo}>Edit</button>) : (<button className="btnAdd" type="submit" onClick={ToDo}>Add</button>)}
                 {edit.id && <button className="btnAdd" type="submit" onClick={Cancel}>Cancel</button>}
             </div>
             
-            {items.map((item)=>{
-                return (
-                    <ol>
-                        <li>
-                            {item.data}
-                        </li>
-                        <button className="btn" onClick={hapusItems.bind(this, item.id)}>Hapus</button>
-                        <button className="btn2" onClick={editItems.bind(this, item)}>Edit</button>
-                        <input className="cekbox" type="checkbox" style={{float:"right"}}/>
-                    </ol>
-                )
-            })}
+            {items.length > 0 ? (
+                items.map((item)=>{
+                    return (
+                        <ol>
+                            {item.done && (<li style={{float:"right",position: "absolute",right:"7rem",color:"green"}}>Done</li>)}
+                            <li>
+                                {item.data}
+                            </li>
+                            <button className="btn" onClick={hapusItems.bind(this, item.id)}>Hapus</button>
+                            <button className="btn2" onClick={editItems.bind(this, item)}>Edit</button>
+                            <input className="cekbox" type="checkbox" onChange={updateCheck.bind(this, item)}style={{float:"right"}} value={items.done}/>
+                        </ol>
+                    )
+                })
+            ) : ("ToDo Masih Empty")}
             
         </div>
         </>

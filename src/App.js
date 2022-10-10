@@ -7,11 +7,11 @@ function App(){
    return (
     <div className="App">
       {/* StateLess : */}
-      <Todolist />
+      {/* <Todolist /> */}
       {/*  */}
 
       {/* StateFull */}
-      {/* <Todo /> */}
+      <Todo />
       {/*  */}
     </div>
   );
